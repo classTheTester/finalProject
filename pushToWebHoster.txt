@@ -3,8 +3,13 @@ If the html file is called index.html, the web path will just run that file
 if there is no file with that name, it will show all the files hosted; both html and python
 
 to push files to the webhoster:
-use cd and the file path of the directory ($ cd /home/somedir)
+use cd and the file path of the directory ($ cd /home/edward/Documents/GitHub/finalProject/dumbshit/)
 then:
 python -m SimpleHTTPServer
 
 runs on your local network
+
+
+this is the link that hosts it:
+
+http://127.0.0.1:8000
