@@ -5,7 +5,7 @@ if there is no file with that name, it will show all the files hosted; both html
 to push files to the webhoster:
 use cd and the file path of the directory ($ cd /home/edward/Documents/GitHub/finalProject/dumbshit/)
 then:
-python -m SimpleHTTPServer
+python -m SimpleHTTPServer or python -m http.server
 
 runs on your local network
 
