@@ -3,6 +3,8 @@ white = (255, 255, 255)
 green = (0, 255, 0)
 red = (149, 53, 83)
 yellow = (255,255,0)
+totalLetters = 0
+mistakes = 0
 import pygame
 letterList = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q','r','s', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 letterDict = {}
@@ -81,6 +83,7 @@ while True:
         # then quitting the pygame
         # and program both.
         if event.type == pygame.QUIT:
+            print((1-(mistakes/totalLetters))*100)
 
  
             # deactivates the pygame library
@@ -104,7 +107,9 @@ while True:
                     print('fuck yeah')
                 else:
                     listOfShit[counter][k] = red
-            if k < len(letters)-1:     
+                    mistakes += 1
+            if k < len(letters)-1:
+                totalLetters += 1
                 k += 1
         # Draws the surface object to the screen.
         pygame.display.update()
