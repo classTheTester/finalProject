@@ -3,6 +3,7 @@ white = (255, 255, 255)
 green = (0, 255, 0)
 red = (149, 53, 83)
 yellow = (255,255,0)
+black = (0, 0, 0)
 totalLetters = 0
 mistakes = 0
 import pygame
@@ -41,7 +42,7 @@ font = pygame.font.Font('freesansbold.ttf', 32)
  
 # create a text surface object,
 # on which text is drawn on it.
-words = ['thewiseman', 'hahahahaha', 'bitchass', 'fuckoff', 'bitch', 'what']
+words = ['thewiseman', 'hahahahaha', 'bitchass', 'fuckoff', 'bitch', 'what', 'fjfjfjfjfjfjfj']
  
 # create a rectangular object for the
 # text surface object
@@ -51,7 +52,7 @@ words = ['thewiseman', 'hahahahaha', 'bitchass', 'fuckoff', 'bitch', 'what']
 # infinite loop
 listOfShit = []
 for i in words:
-    listOfShit.append([green]* len(i))
+    listOfShit.append([black]* len(i))
 k = 0
 counter = 0
 while True:
@@ -105,6 +106,7 @@ while True:
                 print(letterDict.get(str(keyMapping.index(1)+1)))
                 if letterDict.get(str(keyMapping.index(1)+1)) == letter:
                     print('fuck yeah')
+                    listOfShit[counter][k] = green
                 else:
                     listOfShit[counter][k] = red
                     mistakes += 1
