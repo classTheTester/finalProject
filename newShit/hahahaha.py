@@ -102,6 +102,10 @@ while True:
                 print('aaha')
                 counter += 1
                 k = -1
+            elif keys[pygame.K_BACKSPACE] and k >= 0:
+                listOfShit[counter][k] = black
+                k -= 2
+                letter = letters[k]
             elif 1 in keyMapping:
                 print(letterDict.get(str(keyMapping.index(1)+1)))
                 if letterDict.get(str(keyMapping.index(1)+1)) == letter:
