@@ -2,10 +2,10 @@
 white = (255, 255, 255)
 green = (0, 255, 0)
 red = (149, 53, 83)
+yellow = (255,255,0)
 import pygame
 letterList = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q','r','s', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 letterDict = {}
-listOfShit = [[green] * 13, [green] *10]
 for i in range(len(letterList)):
     letterDict[str(i + 5)] =letterList[i]
 
@@ -39,7 +39,7 @@ font = pygame.font.Font('freesansbold.ttf', 32)
  
 # create a text surface object,
 # on which text is drawn on it.
-words = ['thewiseman', 'hahahahaha']
+words = ['thewiseman', 'hahahahaha', 'bitchass', 'fuckoff', 'bitch', 'what']
  
 # create a rectangular object for the
 # text surface object
@@ -47,15 +47,20 @@ words = ['thewiseman', 'hahahahaha']
 # set the center of the rectangular object.
  
 # infinite loop
-
+listOfShit = []
+for i in words:
+    listOfShit.append([green]* len(i))
 k = 0
 counter = 0
 while True:
-    yVal = 200
+    yVal = 20
     display_surface.fill(white)
     for j in words:
         for i in range(len(j)):
-            text = font.render(j[i], True, listOfShit[words.index(j)][i])
+            if i == k and counter == words.index(j):
+                text = font.render(j[i], True, listOfShit[words.index(j)][i], yellow)
+            else:
+                text = font.render(j[i], True, listOfShit[words.index(j)][i])
             display_surface.blit(text, (10 +30*i,yVal))
         yVal += 50
  
