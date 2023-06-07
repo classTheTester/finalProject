@@ -5,7 +5,7 @@ red = (149, 53, 83)
 import pygame
 letterList = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q','r','s', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 letterDict = {}
-listOfShit = [green] * 13
+listOfShit = [[green] * 13, [green] *10]
 for i in range(len(letterList)):
     letterDict[str(i + 5)] =letterList[i]
 
@@ -55,7 +55,7 @@ while True:
     display_surface.fill(white)
     for j in words:
         for i in range(len(j)):
-            text = font.render(j[i], True, listOfShit[i])
+            text = font.render(j[i], True, listOfShit[words.index(j)][i])
             display_surface.blit(text, (10 +30*i,yVal))
         yVal += 50
  
@@ -92,12 +92,14 @@ while True:
             if keys[pygame.K_SPACE]:
                 print('aaha')
                 counter += 1
-            if 1 in keyMapping:
+                k = -1
+            elif 1 in keyMapping:
                 print(letterDict.get(str(keyMapping.index(1)+1)))
                 if letterDict.get(str(keyMapping.index(1)+1)) == letter:
                     print('fuck yeah')
                 else:
-                    listOfShit[k] = red
+                    listOfShit[counter][k] = red
+            if k < len(letters)-1:     
                 k += 1
         # Draws the surface object to the screen.
         pygame.display.update()
