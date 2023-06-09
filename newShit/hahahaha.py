@@ -94,7 +94,6 @@ while True:
             quit()
         if event.type == pygame.KEYDOWN:
             keys = pygame.key.get_pressed()
-            keyMapping = list(keys)
             letters = list(words[counter])
             letter = letters[k]
             print("hahahahaha", letter)
@@ -102,14 +101,26 @@ while True:
                 print('aaha')
                 counter += 1
                 k = -1
-            elif 1 in keyMapping:
-                print(letterDict.get(str(keyMapping.index(1)+1)))
-                if letterDict.get(str(keyMapping.index(1)+1)) == letter:
-                    print('fuck yeah')
-                    listOfShit[counter][k] = green
+#<<<<<<< Updated upstream
+            if pygame.key.name(event.key) == letter:
+                print('fuck yeah')
+                listOfShit[counter][k] = green
+            elif pygame.key.name(event.key) == letter:
+                listOfShit[counter][k] = red
+                mistakes += 1
+#=======        
+            elif keys[pygame.K_BACKSPACE]:
+                if k > 0:
+                    listOfShit[counter][k] = black
+                    k -= 2
                 else:
-                    listOfShit[counter][k] = red
-                    mistakes += 1
+                    print('lmao')
+                    counter -= 1
+                    k = len(words[counter])-1
+                    listOfShit[counter][k] = black
+                letter = letters[k]
+
+#>>>>>>> Stashed changes
             if k < len(letters)-1:
                 totalLetters += 1
                 k += 1
