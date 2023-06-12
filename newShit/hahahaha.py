@@ -3,7 +3,6 @@ white = (255, 255, 255)
 green = (0, 255, 0)
 red = (149, 53, 83)
 yellow = (255,255,0)
-black = (0, 0, 0)
 totalLetters = 0
 mistakes = 0
 import pygame
@@ -42,7 +41,11 @@ font = pygame.font.Font('freesansbold.ttf', 32)
  
 # create a text surface object,
 # on which text is drawn on it.
+<<<<<<< HEAD
 words = ['thewiseman', 'hahahahaha', 'bitchassss', 'fuckoff', 'bitch', 'what', 'fjfjfjfjfjfjfj']
+=======
+words = ['thewiseman', 'hahahahaha', 'bitchass', 'fuckoff', 'bitch', 'what']
+>>>>>>> parent of 39a6e4c (Update hahahaha.py)
  
 # create a rectangular object for the
 # text surface object
@@ -52,7 +55,7 @@ words = ['thewiseman', 'hahahahaha', 'bitchassss', 'fuckoff', 'bitch', 'what', '
 # infinite loop
 listOfShit = []
 for i in words:
-    listOfShit.append([black]* len(i))
+    listOfShit.append([green]* len(i))
 k = 0
 counter = 0
 while True:
@@ -99,6 +102,7 @@ while True:
             if keys[pygame.K_SPACE]:
                 counter += 1
                 k = -1
+<<<<<<< HEAD
 #<<<<<<< Updated upstream
             if pygame.key.name(event.key) == letter:
                 print('fuck yeah')
@@ -118,6 +122,12 @@ while True:
                     print('yeah')
                 elif k== 0 and counter == 0:
                     pass
+=======
+            elif 1 in keyMapping:
+                print(letterDict.get(str(keyMapping.index(1)+1)))
+                if letterDict.get(str(keyMapping.index(1)+1)) == letter:
+                    print('fuck yeah')
+>>>>>>> parent of 39a6e4c (Update hahahaha.py)
                 else:
                     counter -= 1
                     k = len(words[counter])-2
