@@ -103,6 +103,7 @@ while True:
                 counter += 1
                 k = -1
 <<<<<<< HEAD
+<<<<<<< HEAD
 #<<<<<<< Updated upstream
             if pygame.key.name(event.key) == letter:
                 print('fuck yeah')
@@ -123,6 +124,12 @@ while True:
                 elif k== 0 and counter == 0:
                     pass
 =======
+=======
+            elif keys[pygame.K_BACKSPACE] and k >= 0:
+                listOfShit[counter][k] = black
+                k -= 2
+                letter = letters[k]
+>>>>>>> upstream/main
             elif 1 in keyMapping:
                 print(letterDict.get(str(keyMapping.index(1)+1)))
                 if letterDict.get(str(keyMapping.index(1)+1)) == letter:
