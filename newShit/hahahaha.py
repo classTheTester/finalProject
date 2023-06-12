@@ -42,7 +42,7 @@ font = pygame.font.Font('freesansbold.ttf', 32)
  
 # create a text surface object,
 # on which text is drawn on it.
-words = ['thewiseman', 'hahahahaha', 'bitchass', 'fuckoff', 'bitch', 'what', 'fjfjfjfjfjfjfj']
+words = ['thewiseman', 'hahahahaha', 'bitchassss', 'fuckoff', 'bitch', 'what', 'fjfjfjfjfjfjfj']
  
 # create a rectangular object for the
 # text surface object
@@ -96,33 +96,35 @@ while True:
             keys = pygame.key.get_pressed()
             letters = list(words[counter])
             letter = letters[k]
-            print("hahahahaha", letter)
             if keys[pygame.K_SPACE]:
-                print('aaha')
                 counter += 1
                 k = -1
 #<<<<<<< Updated upstream
             if pygame.key.name(event.key) == letter:
                 print('fuck yeah')
                 listOfShit[counter][k] = green
-            elif pygame.key.name(event.key) == letter:
+                if k < len(letters)-1:
+                    totalLetters += 1
+                    k += 1
+            elif pygame.key.name(event.key) != letter and pygame.key.name(event.key) != "backspace":
                 listOfShit[counter][k] = red
                 mistakes += 1
+
 #=======        
             elif keys[pygame.K_BACKSPACE]:
                 if k > 0:
                     listOfShit[counter][k] = black
                     k -= 2
+                    print('yeah')
+                elif k== 0 and counter == 0:
+                    pass
                 else:
-                    print('lmao')
                     counter -= 1
-                    k = len(words[counter])-1
+                    k = len(words[counter])-2
+                    print(words[counter])
                     listOfShit[counter][k] = black
                 letter = letters[k]
 
 #>>>>>>> Stashed changes
-            if k < len(letters)-1:
-                totalLetters += 1
-                k += 1
         # Draws the surface object to the screen.
         pygame.display.update()
