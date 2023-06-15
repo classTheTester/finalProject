@@ -4,10 +4,11 @@ white = (255, 255, 255)
 black = (0,0,0)
 totalLetters = 0
 mistakes = 0
+wrongLetterList = []
 font = pygame.font.Font('freesansbold.ttf', 32)
 import pygame
 import json
-scoreText = open("scores.txt", 'w')
+scoreText = open("scores.txt", 'a')
 # activate the pygame library
 # initiate pygame and give permission
 # to use pygame's functionality.
@@ -36,18 +37,20 @@ pygame.display.set_caption('Show Text')
  
 # create a text surface object,
 # on which text is drawn on it.
+
 words = ['thewiseman', 'thefool', 'thedog', 'jkjkjkjk', 'falling', 'what', 'fjfjfjfjfjfjfj']
 listClass = []
 wordsCounter = 0
 gameLoop = True
-scoreLoop = False
-for i in range(len(words)):
-    if i == 0:
-        wordUsed = Words(words[i],0, i)
-    else:
-        wordUsed = Words(words[i],len(words[i-1]), i)
-    listClass.append(wordUsed)
- 
+scoreLoop = True
+def createClasses(words):
+    for i in range(len(words)):
+        if i == 0:
+            wordUsed = Words(words[i],0, i)
+        else:
+            wordUsed = Words(words[i],len(words[i-1]), i)
+        listClass.append(wordUsed)
+createClasses(words)
 # create a rectangular object for the
 # text surface object
  
@@ -75,24 +78,21 @@ while scoreLoop:
     pygame.display.update()
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
-            print(pygame.key.name(event.key))
-            userList.append(pygame.key.name(event.key))
-    if len(userList) >= 5:
-        scoreJson = {"name": ''.join(userList), "score": 0}
-        test = json.dumps(scoreJson)
-        scoreText.write(test)
-        print('lol')
-        scoreText.close()
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_SPACE]:
+                scoreJson = {"name": ''.join(userList), "score": 0}
+                test = json.dumps(scoreJson)
+                scoreText.write(test)
+                print('lol')
+                scoreText.close()
+            else:
+                userList.append(pygame.key.name(event.key))
     scoreDraw()
 
 
 while gameLoop:
     pygame.display.update()
     for event in pygame.event.get():
-
-        # if event object type is QUIT
-        # then quitting the pygame
-        # and program both.
         if event.type == pygame.QUIT:
             gameLoop = False
         if event.type == pygame.KEYDOWN:
@@ -102,8 +102,19 @@ while gameLoop:
             elif keys[pygame.K_BACKSPACE]:
                 if listClass[wordsCounter].backSpace() and wordsCounter > 0:
                     wordsCounter -= 1
-            elif listClass[wordsCounter].checkCorrect(pygame.key.name(event.key)):
+            elif listClass[wordsCounter].checkCorrect(pygame.key.name(event.key),wrongLetterList):
                 wordsCounter += 1
+                print(wrongLetterList)
+                if wordsCounter == len(words):
+                    words = [a for a in wrongLetterList if a != ""]
+                    if len(words) == 0:
+                        gameLoop = False
+                    else:
+                        wordsCounter = 0
+                        wrongLetterList.clear()
+                        listClass.clear()
+                        createClasses(words)
+                    
 
 
     redraw()

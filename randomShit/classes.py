@@ -10,16 +10,16 @@ font = pygame.font.Font('freesansbold.ttf', 32)
 
 
 class Words():
-    def __init__(self, word, prevWordLen, wordPos):
+    def __init__(self, word, hello, wordPos):
         self.time = 0
         self.accuracy = 0
         self.word = word
         self.wordLen = len(str(word))
         self.letterList = list(word)
         self.counter = -1
-        self.listColour = [black] * self.wordLen
-        self.prevWordLen = prevWordLen
         self.wordPos = wordPos
+        self.listColour = [black] * self.wordLen
+        self.wrongLetters = ""
     def backSpace(self):
         self.listColour[self.counter] = black
         if self.counter < 0:
@@ -27,13 +27,15 @@ class Words():
         else:
             self.counter -= 1
 
-    def checkCorrect(self, letterPressed):
+    def checkCorrect(self, letterPressed, wrongLetterList):
         self.counter += 1
         if self.letterList[self.counter] == letterPressed:
             self.listColour[self.counter] = green
         elif self.letterList[self.counter] != letterPressed:
             self.listColour[self.counter] = red
+            self.wrongLetters += self.letterList[self.counter]
         if self.counter == self.wordLen-1:
+            wrongLetterList.append(self.wrongLetters)
             return True
     def drawWord(self, surface, pointer):
         for i in range(len(self.word)):
