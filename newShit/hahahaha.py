@@ -1,3 +1,7 @@
+import pygame
+pygame.init()
+scoreText = open("scores.txt", 'w')
+print(scoreText)
 # import pygame module in this program
 white = (255, 255, 255)
 green = (0, 255, 0)
@@ -6,7 +10,7 @@ yellow = (255,255,0)
 black = (0, 0, 0)
 totalLetters = 0
 mistakes = 0
-import pygame
+#import pygame
 letterList = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q','r','s', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 letterDict = {}
 for i in range(len(letterList)):
@@ -17,7 +21,7 @@ print(letterDict)
 # activate the pygame library
 # initiate pygame and give permission
 # to use pygame's functionality.
-pygame.init()
+#pygame.init()
  
 # define the RGB value for white,
 #  green, blue colour .
@@ -93,7 +97,8 @@ while True:
             # quit the program.
             quit()
         if event.type == pygame.KEYDOWN:
-            keys = pygame.key.get_pressed()
+          #  keys = pygame.key.get_pressed()
+            currentKey=pygame.key.name(event.key)
             keyMapping = list(keys)
             letters = list(words[counter])
             letter = letters[k]
@@ -108,7 +113,7 @@ while True:
                 letter = letters[k]
             elif 1 in keyMapping:
                 print(letterDict.get(str(keyMapping.index(1)+1)))
-                if letterDict.get(str(keyMapping.index(1)+1)) == letter:
+                if pygame.key.name == letter:
                     print('fuck yeah')
                     listOfShit[counter][k] = green
                 else:
