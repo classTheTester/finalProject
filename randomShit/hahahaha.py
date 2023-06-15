@@ -40,7 +40,7 @@ words = ['thewiseman', 'thefool', 'thedog', 'jkjkjkjk', 'falling', 'what', 'fjfj
 listClass = []
 wordsCounter = 0
 gameLoop = True
-scoreLoop = True
+scoreLoop = False
 for i in range(len(words)):
     if i == 0:
         wordUsed = Words(words[i],0, i)
@@ -76,7 +76,7 @@ while scoreLoop:
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
             print(pygame.key.name(event.key))
-            userList.append(str(pygame.key.name(event.key)))
+            userList.append(pygame.key.name(event.key))
     if len(userList) >= 5:
         scoreJson = {"name": ''.join(userList), "score": 0}
         test = json.dumps(scoreJson)
@@ -101,7 +101,6 @@ while gameLoop:
                 wordsCounter += 1
             elif keys[pygame.K_BACKSPACE]:
                 if listClass[wordsCounter].backSpace() and wordsCounter > 0:
-                    print('lmao')
                     wordsCounter -= 1
             elif listClass[wordsCounter].checkCorrect(pygame.key.name(event.key)):
                 wordsCounter += 1

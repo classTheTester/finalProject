@@ -22,7 +22,7 @@ class Words():
         self.wordPos = wordPos
     def backSpace(self):
         self.listColour[self.counter] = black
-        if self.counter <= 0:
+        if self.counter < 0:
             return True
         else:
             self.counter -= 1
@@ -31,10 +31,10 @@ class Words():
         self.counter += 1
         if self.letterList[self.counter] == letterPressed:
             self.listColour[self.counter] = green
-            if self.counter == self.wordLen-1:
-                return True
-        else:
+        elif self.letterList[self.counter] != letterPressed:
             self.listColour[self.counter] = red
+        if self.counter == self.wordLen-1:
+            return True
     def drawWord(self, surface, pointer):
         for i in range(len(self.word)):
             if i == self.counter + 1 and pointer:
