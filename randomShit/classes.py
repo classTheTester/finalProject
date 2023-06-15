@@ -20,14 +20,17 @@ class Words():
         self.wordPos = wordPos
         self.listColour = [black] * self.wordLen
         self.wrongLetters = ""
+        self.firstTime = 0
     def backSpace(self):
         self.listColour[self.counter] = black
         if self.counter < 0:
             return True
         else:
             self.counter -= 1
+    def initiateTime(self):
+        self.firstTime = time.time()
 
-    def checkCorrect(self, letterPressed, wrongLetterList):
+    def checkCorrect(self, letterPressed, wrongLetterList, accList, timeList):
         self.counter += 1
         if self.letterList[self.counter] == letterPressed:
             self.listColour[self.counter] = green
@@ -35,7 +38,10 @@ class Words():
             self.listColour[self.counter] = red
             self.wrongLetters += self.letterList[self.counter]
         if self.counter == self.wordLen-1:
-            wrongLetterList.append(self.wrongLetters)
+            secondTime = time.time()
+            self.time = secondTime - self.firstTime
+            self.accuracy = (1-(len(self.wrongLetters)/self.wordLen))*100
+            wrongLetterList.append(self.wrongLetters); accList.append(self.accuracy); timeList.append(self.time)
             return True
     def drawWord(self, surface, pointer):
         for i in range(len(self.word)):
@@ -45,6 +51,7 @@ class Words():
                 text = font.render(self.letterList[i], True, self.listColour[i])
             surface.blit(text, (10 +30*i,50*self.wordPos))
 
-#or just use return and append it to the list in the main
-    def inputData(self, accList, timeList):
-        accList.append(self.accuracy); timeList.append(self.timeList)        
+
+
+
+

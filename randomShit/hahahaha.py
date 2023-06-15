@@ -5,6 +5,8 @@ black = (0,0,0)
 totalLetters = 0
 mistakes = 0
 wrongLetterList = []
+accList = []
+timeList = []
 font = pygame.font.Font('freesansbold.ttf', 32)
 import pygame
 import json
@@ -42,7 +44,7 @@ words = ['thewiseman', 'thefool', 'thedog', 'jkjkjkjk', 'falling', 'what', 'fjfj
 listClass = []
 wordsCounter = 0
 gameLoop = True
-scoreLoop = True
+scoreLoop = False
 def createClasses(words):
     for i in range(len(words)):
         if i == 0:
@@ -83,13 +85,12 @@ while scoreLoop:
                 scoreJson = {"name": ''.join(userList), "score": 0}
                 test = json.dumps(scoreJson)
                 scoreText.write(test)
-                print('lol')
                 scoreText.close()
             else:
                 userList.append(pygame.key.name(event.key))
     scoreDraw()
 
-
+listClass[0].initiateTime()
 while gameLoop:
     pygame.display.update()
     for event in pygame.event.get():
@@ -102,12 +103,15 @@ while gameLoop:
             elif keys[pygame.K_BACKSPACE]:
                 if listClass[wordsCounter].backSpace() and wordsCounter > 0:
                     wordsCounter -= 1
-            elif listClass[wordsCounter].checkCorrect(pygame.key.name(event.key),wrongLetterList):
+            elif listClass[wordsCounter].checkCorrect(pygame.key.name(event.key),wrongLetterList, accuracyList, timeList):
                 wordsCounter += 1
+                if wordsCounter != len(words):
+                    listClass[wordsCounter].initiateTime()
                 print(wrongLetterList)
                 if wordsCounter == len(words):
                     words = [a for a in wrongLetterList if a != ""]
                     if len(words) == 0:
+                        print("timeList", timeList, "accuracyList", accuracyList, "wrongLetters", wrongLetterList)
                         gameLoop = False
                     else:
                         wordsCounter = 0
