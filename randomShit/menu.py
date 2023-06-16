@@ -25,8 +25,8 @@ while gameLoop:
 
     screen.fill((48, 221, 255)) #fill 2/3 screen
     topHalf = pygame.draw.rect(screen,PEACH,(0,0,2500,350)) 
-    timeButton = pygame.draw.rect(screen,darkBlue,(WIDTH//2+10,HEIGHT//2-30,115,35)) 
-    ballButton = pygame.draw.rect(screen,darkBlue,(205,HEIGHT//2-31,115,35))
+    timeButton = pygame.draw.rect(screen,darkBlue,(WIDTH//2+10,HEIGHT//2-30,150,35)) 
+    ballButton = pygame.draw.rect(screen,darkBlue,(205,HEIGHT//2-31,150,35))
     gameMessage = font.render('Welcome to RapidType! Please select from an option below!',18,WHITE)
     gameMessageTwo = font.render('RapidType is the best way to improve your typing!',18,WHITE)
     ballMessage = font.render('Balloon Pop',10,WHITE)

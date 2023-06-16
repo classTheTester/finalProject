@@ -22,6 +22,7 @@ class Words():
         self.listColour = [black] * self.wordLen
         self.wrongLetters = ""
         self.firstTime = 0
+        self.letters = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm']
     def backSpace(self):
         self.listColour[self.counter] = black
         if self.counter < 0:
@@ -51,6 +52,18 @@ class Words():
             else:
                 text = font.render(self.letterList[i], True, self.listColour[i])
             surface.blit(text, (self.xPos + 30*i, self.yPos))
+    def indicateKeyboard(self, surface):
+        rowLevel = 0
+        letterIndex = self.letters.index(self.letterList[self.counter+1]) 
+        print("fuckfuckfuck", letterIndex)
+        if letterIndex >= 19:
+            letterIndex -= 19
+            rowLevel += 2
+        elif letterIndex >= 10:
+            letterIndex -= 10
+            rowLevel += 1
+        print(rowLevel, letterIndex)
+        pygame.draw.rect(surface, yellow, pygame.Rect(110+(50*letterIndex)+20*rowLevel, 390+(50*rowLevel), 50, 40))
 
 
 

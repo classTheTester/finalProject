@@ -42,7 +42,7 @@ pygame.display.set_caption('Show Text')
 # create a text surface object,
 # on which text is drawn on it.
 
-words = ['thewiseman', 'thefool', 'thedog', 'jkjkjkjk', 'falling', 'what', 'fjfjfjfjfjfjfj', 'yes', 'no','fool', 'please', 'testing']
+words = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm', 'jkjkjkjk', 'falling', 'what', 'fjfjfjfjfjfjfj', 'yes', 'no','fool', 'please', 'testing']
 listClass = []
 wordsCounter = 0
 gameLoop = True
@@ -79,6 +79,7 @@ def redraw():
     yVal = 20
     display_surface.fill(white)
     display_surface.blit(keyboardImg, (0, 300))
+    print(listClass[wordsCounter].indicateKeyboard(display_surface))
     for i in range(len(listClass)):
         if i == wordsCounter:
             listClass[i].drawWord(display_surface, True)
