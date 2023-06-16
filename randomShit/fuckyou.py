@@ -45,6 +45,7 @@ pygame.display.set_caption('Show Text')
 words = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm', 'jkjkjkjk', 'falling', 'what', 'fjfjfjfjfjfjfj', 'yes', 'no','fool', 'please', 'testing']
 listClass = []
 wordsCounter = 0
+endList = False
 gameLoop = True
 scoreLoop = False
 def createClasses(words):
@@ -79,7 +80,8 @@ def redraw():
     yVal = 20
     display_surface.fill(white)
     display_surface.blit(keyboardImg, (0, 300))
-    if len(listClass) > 0:
+    print("shok", wordsCounter)
+    if len(listClass) - 1 > 0:
         listClass[wordsCounter].indicateKeyboard(display_surface)
     #text = font.render(str(sum(timeList)), True, black)
     #display_surface.blit(text, (30, 20)) 
@@ -105,6 +107,8 @@ while scoreLoop:
 
 listClass[0].initiateTime()
 while gameLoop:
+    redraw()
+
     pygame.display.update()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -112,11 +116,10 @@ while gameLoop:
         if event.type == pygame.KEYDOWN:
             keys = pygame.key.get_pressed()
             if keys[pygame.K_SPACE]:
-                wordsCounter += 1
-            elif keys[pygame.K_BACKSPACE]:
-                if listClass[wordsCounter].backSpace() and wordsCounter > 0:
-                    wordsCounter -= 1
-            elif listClass[wordsCounter].checkCorrect(pygame.key.name(event.key),wrongLetterList, accuracyList, timeList):
+                if endList:
+                endList = False
+                listClass[wordsCounter].inputData(timeList, accuracyList, wrongLetterList)
+                print("accc", accuracyList, "timmm", timeList, "wrong", wrongLetterList)
                 wordsCounter += 1
                 if wordsCounter == len(words):
                     totalTime = sum(timeList)
@@ -125,17 +128,42 @@ while gameLoop:
                     print("you accuracy is", sum(accuracyList)//len(words), "%")
                     words = [a for a in wrongLetterList if a != ""]
                     if len(words) == 0:
+                        print("fool")
                         print("timeList", timeList, "accuracyList", accuracyList, "wrongLetters", wrongLetterList)
                         print(totalTime)
                         gameLoop = False
                     else:
+                        print("schmool")
                         wordsCounter = 0
                         wrongLetterList.clear()
                         listClass.clear()
                         createClasses(words)
                 else:
-                    listClass[wordsCounter].initiateTime()
+                     print('scmool')
+                     listClass[wordsCounter].initiateTime()
+            elif keys[pygame.K_BACKSPACE]:
+                if listClass[wordsCounter].backSpace() and wordsCounter > 0:
+                    wordsCounter -= 1
+
+
+            elif listClass[wordsCounter].checkCorrect(pygame.key.name(event.key),wrongLetterList, accuracyList, timeList):
+                listClass[wordCounter+1].initiateTime()
+                endList = True
+                #     totalTime = sum(timeList)
+                #     #if the user presses space, the timer doesn't start so the score would always be zero")
+                #     print("your words per minute is", round((60/totalTime)*len(words)))
+                #     print("you accuracy is", sum(accuracyList)//len(words), "%")
+                #     words = [a for a in wrongLetterList if a != ""]
+                #     if len(words) == 0:
+                #         print("timeList", timeList, "accuracyList", accuracyList, "wrongLetters", wrongLetterList)
+                #         print(totalTime)
+                #         gameLoop = False
+                #     else:
+                #         wordsCounter = 0
+                #         wrongLetterList.clear()
+                #         listClass.clear()
+                #         createClasses(words)
+
                     
 
 
-    redraw()
