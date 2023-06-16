@@ -42,7 +42,7 @@ pygame.display.set_caption('Show Text')
 # create a text surface object,
 # on which text is drawn on it.
 
-words = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm', 'jkjkjkjk', 'falling', 'what', 'fjfjfjfjfjfjfj', 'yes', 'no','fool', 'please', 'testing']
+words = [ 'yes', 'no','fool', 'please', 'testing']
 listClass = []
 wordsCounter = 0
 endList = False
@@ -54,7 +54,7 @@ def createClasses(words):
     for i in range(len(words)):
         wordUsed = Words(words[i],xSpace, ySpace)
         listClass.append(wordUsed)
-        if xSpace + 30*len(words[i])+40 < 650:
+        if xSpace + 30*len(words[i])+40 < 600:
             xSpace += 30*len(words[i]) + 50
         else:
             ySpace += 50
@@ -80,7 +80,6 @@ def redraw():
     yVal = 20
     display_surface.fill(white)
     display_surface.blit(keyboardImg, (0, 300))
-    print("shok", wordsCounter)
     if len(listClass) - 1 > 0:
         listClass[wordsCounter].indicateKeyboard(display_surface)
     #text = font.render(str(sum(timeList)), True, black)
@@ -117,37 +116,37 @@ while gameLoop:
             keys = pygame.key.get_pressed()
             if keys[pygame.K_SPACE]:
                 if endList:
-                endList = False
-                listClass[wordsCounter].inputData(timeList, accuracyList, wrongLetterList)
-                print("accc", accuracyList, "timmm", timeList, "wrong", wrongLetterList)
-                wordsCounter += 1
-                if wordsCounter == len(words):
-                    totalTime = sum(timeList)
-                    #if the user presses space, the timer doesn't start so the score would always be zero")
-                    print("your words per minute is", round((60/totalTime)*len(words)))
-                    print("you accuracy is", sum(accuracyList)//len(words), "%")
-                    words = [a for a in wrongLetterList if a != ""]
-                    if len(words) == 0:
-                        print("fool")
-                        print("timeList", timeList, "accuracyList", accuracyList, "wrongLetters", wrongLetterList)
-                        print(totalTime)
-                        gameLoop = False
+                    endList = False
+                    listClass[wordsCounter].inputData(timeList, accuracyList, wrongLetterList)
+                    print("accc", accuracyList, "timmm", timeList, "wrong", wrongLetterList)
+                    wordsCounter += 1
+                    if wordsCounter == len(words):
+                        totalTime = sum(timeList)
+                        #if the user presses space, the timer doesn't start so the score would always be zero")
+                        print("your words per minute is", round((60/totalTime)*len(words)))
+                        print("you accuracy is", sum(accuracyList)//len(words), "%")
+                        words = [a for a in wrongLetterList if a != ""]
+                        if len(words) == 0:
+                            print("timeList", timeList, "accuracyList", accuracyList, "wrongLetters", wrongLetterList)
+                            print(totalTime)
+                            gameLoop = False
+                        else:
+                            wordsCounter = 0
+                            wrongLetterList.clear()
+                            listClass.clear()
+                            createClasses(words)
                     else:
-                        print("schmool")
-                        wordsCounter = 0
-                        wrongLetterList.clear()
-                        listClass.clear()
-                        createClasses(words)
-                else:
-                     print('scmool')
-                     listClass[wordsCounter].initiateTime()
+                         print('scmool')
+                         listClass[wordsCounter].initiateTime()
             elif keys[pygame.K_BACKSPACE]:
                 if listClass[wordsCounter].backSpace() and wordsCounter > 0:
                     wordsCounter -= 1
 
 
-            elif listClass[wordsCounter].checkCorrect(pygame.key.name(event.key),wrongLetterList, accuracyList, timeList):
-                listClass[wordCounter+1].initiateTime()
+            elif listClass[wordsCounter].checkCorrect(pygame.key.name(event.key)):
+                if wordsCounter < len(words)-1:
+                    listClass[wordsCounter+1].initiateTime()
+                print("dope fucking shit")
                 endList = True
                 #     totalTime = sum(timeList)
                 #     #if the user presses space, the timer doesn't start so the score would always be zero")

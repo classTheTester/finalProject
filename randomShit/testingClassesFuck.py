@@ -32,7 +32,7 @@ class Words():
     def initiateTime(self):
         self.firstTime = time.time()
 
-    def checkCorrect(self, letterPressed, wrongLetterList, accList, timeList):
+    def checkCorrect(self, letterPressed):
         if self.counter < self.wordLen - 1:
             self.counter += 1
         if self.letterList[self.counter] == letterPressed:
@@ -40,7 +40,8 @@ class Words():
         elif self.letterList[self.counter] != letterPressed:
             self.listColour[self.counter] = red
             self.wrongLetters += self.letterList[self.counter]
-        # if self.counter == self.wordLen:
+        if self.counter == self.wordLen-1:
+            return True
         #     secondTime = time.time()
         #     self.time = secondTime - self.firstTime
         #     self.accuracy = (1-(len(self.wrongLetters)/self.wordLen))*100
