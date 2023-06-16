@@ -1,5 +1,5 @@
 # import pygame module in this program
-from classes import *
+from testingClassesFuck import *
 white = (255, 255, 255)
 black = (0,0,0)
 totalLetters = 0
@@ -45,14 +45,19 @@ listClass = []
 wordsCounter = 0
 gameLoop = True
 scoreLoop = False
-space = 0
 def createClasses(words):
+    xSpace = 0
+    ySpace = 0
     for i in range(len(words)):
-        if i == 0:
-            wordUsed = Words(words[i],0, i)
-        else:
-            wordUsed = Words(words[i],len(words[i-1]), i)
+        wordUsed = Words(words[i],xSpace, ySpace)
         listClass.append(wordUsed)
+        if xSpace + 30*len(words[i])+50 < 650:
+            xSpace += 30*len(words[i]) + 50
+        else:
+            ySpace += 50
+            xSpace = 0
+        print(xSpace, ySpace)
+        
 createClasses(words)
 # create a rectangular object for the
 # text surface object

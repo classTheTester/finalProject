@@ -10,14 +10,15 @@ font = pygame.font.Font('freesansbold.ttf', 32)
 
 
 class Words():
-    def __init__(self, word, hello, wordPos):
+    def __init__(self, word, xPos, yPos):
         self.time = 0
         self.accuracy = 0
         self.word = word
         self.wordLen = len(str(word))
         self.letterList = list(word)
         self.counter = -1
-        self.wordPos = wordPos
+        self.xPos = xPos
+        self.yPos = yPos
         self.listColour = [black] * self.wordLen
         self.wrongLetters = ""
         self.firstTime = 0
@@ -49,7 +50,7 @@ class Words():
                 text = font.render(self.letterList[i], True, self.listColour[i], yellow)
             else:
                 text = font.render(self.letterList[i], True, self.listColour[i])
-            surface.blit(text, (10 +30*i,50*self.wordPos))
+            surface.blit(text, (self.xPos + 30*i, self.yPos))
 
 
 
