@@ -22,6 +22,8 @@ pygame.init()
 # assigning values to X and Y variable
 X = 800
 Y = 600
+keyboardImg = pygame.image.load("keyboard.png")
+#keyboardImg = pygame.transform.scale(keyboardImg, (200, 150))
 timeList = []
 accuracyList = []
 # create the display surface object
@@ -51,7 +53,7 @@ def createClasses(words):
     for i in range(len(words)):
         wordUsed = Words(words[i],xSpace, ySpace)
         listClass.append(wordUsed)
-        if xSpace + 30*len(words[i])+50 < 650:
+        if xSpace + 30*len(words[i])+40 < 650:
             xSpace += 30*len(words[i]) + 50
         else:
             ySpace += 50
@@ -76,6 +78,7 @@ def scoreDraw():
 def redraw():
     yVal = 20
     display_surface.fill(white)
+    display_surface.blit(keyboardImg, (0, 300))
     for i in range(len(listClass)):
         if i == wordsCounter:
             listClass[i].drawWord(display_surface, True)
