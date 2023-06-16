@@ -40,11 +40,12 @@ pygame.display.set_caption('Show Text')
 # create a text surface object,
 # on which text is drawn on it.
 
-words = ['thewiseman', 'thefool', 'thedog', 'jkjkjkjk', 'falling', 'what', 'fjfjfjfjfjfjfj']
+words = ['thewiseman', 'thefool', 'thedog', 'jkjkjkjk', 'falling', 'what', 'fjfjfjfjfjfjfj', 'yes', 'no','fool', 'please', 'testing']
 listClass = []
 wordsCounter = 0
 gameLoop = True
 scoreLoop = False
+space = 0
 def createClasses(words):
     for i in range(len(words)):
         if i == 0:
@@ -105,19 +106,23 @@ while gameLoop:
                     wordsCounter -= 1
             elif listClass[wordsCounter].checkCorrect(pygame.key.name(event.key),wrongLetterList, accuracyList, timeList):
                 wordsCounter += 1
-                if wordsCounter != len(words):
-                    listClass[wordsCounter].initiateTime()
-                print(wrongLetterList)
                 if wordsCounter == len(words):
+                    totalTime = sum(timeList)
+                    #if the user presses space, the timer doesn't start so the score would always be zero")
+                    print("your words per minute is", round((60/totalTime)*len(words)))
+                    print("you accuracy is", sum(accuracyList)//len(words), "%")
                     words = [a for a in wrongLetterList if a != ""]
                     if len(words) == 0:
                         print("timeList", timeList, "accuracyList", accuracyList, "wrongLetters", wrongLetterList)
+                        print(totalTime)
                         gameLoop = False
                     else:
                         wordsCounter = 0
                         wrongLetterList.clear()
                         listClass.clear()
                         createClasses(words)
+                else:
+                    listClass[wordsCounter].initiateTime()
                     
 
 
