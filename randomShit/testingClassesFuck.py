@@ -39,7 +39,7 @@ class Words():
         elif self.letterList[self.counter] != letterPressed:
             self.listColour[self.counter] = red
             self.wrongLetters += self.letterList[self.counter]
-        if self.counter == self.wordLen-1:
+        if self.counter == self.wordLen:
             secondTime = time.time()
             self.time = secondTime - self.firstTime
             self.accuracy = (1-(len(self.wrongLetters)/self.wordLen))*100
@@ -54,16 +54,19 @@ class Words():
             surface.blit(text, (self.xPos + 30*i, self.yPos))
     def indicateKeyboard(self, surface):
         rowLevel = 0
-        letterIndex = self.letters.index(self.letterList[self.counter+1]) 
-        print("fuckfuckfuck", letterIndex)
-        if letterIndex >= 19:
-            letterIndex -= 19
-            rowLevel += 2
-        elif letterIndex >= 10:
-            letterIndex -= 10
-            rowLevel += 1
-        print(rowLevel, letterIndex)
-        pygame.draw.rect(surface, yellow, pygame.Rect(110+(50*letterIndex)+20*rowLevel, 390+(50*rowLevel), 50, 40))
+        if self.counter >= self.wordLen-1:
+            pygame.draw.rect(surface, yellow, pygame.Rect(230, 530, 400, 60))
+        else:
+            letterIndex = self.letters.index(self.letterList[self.counter+1]) 
+            print("fuckfuckfuck", letterIndex)
+            if letterIndex >= 19:
+                letterIndex -= 19
+                rowLevel += 2
+            elif letterIndex >= 10:
+                letterIndex -= 10
+                rowLevel += 1
+            print(rowLevel, letterIndex)
+            pygame.draw.rect(surface, yellow, pygame.Rect(110+(50*letterIndex)+20*rowLevel, 390+(50*rowLevel), 50, 40))
 
 
 

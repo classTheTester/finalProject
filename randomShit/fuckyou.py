@@ -49,7 +49,7 @@ gameLoop = True
 scoreLoop = False
 def createClasses(words):
     xSpace = 0
-    ySpace = 0
+    ySpace = 50
     for i in range(len(words)):
         wordUsed = Words(words[i],xSpace, ySpace)
         listClass.append(wordUsed)
@@ -79,7 +79,10 @@ def redraw():
     yVal = 20
     display_surface.fill(white)
     display_surface.blit(keyboardImg, (0, 300))
-    print(listClass[wordsCounter].indicateKeyboard(display_surface))
+    if len(listClass) > 0:
+        listClass[wordsCounter].indicateKeyboard(display_surface)
+    #text = font.render(str(sum(timeList)), True, black)
+    #display_surface.blit(text, (30, 20)) 
     for i in range(len(listClass)):
         if i == wordsCounter:
             listClass[i].drawWord(display_surface, True)
