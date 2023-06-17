@@ -42,11 +42,7 @@ class Words():
             self.wrongLetters += self.letterList[self.counter]
         if self.counter == self.wordLen-1:
             return True
-        #     secondTime = time.time()
-        #     self.time = secondTime - self.firstTime
-        #     self.accuracy = (1-(len(self.wrongLetters)/self.wordLen))*100
-        #     wrongLetterList.append(self.wrongLetters); accList.append(self.accuracy); timeList.append(self.time)
-        #     return True
+
     def drawWord(self, surface, pointer):
         for i in range(len(self.word)):
             if i == self.counter + 1 and pointer:
@@ -57,7 +53,7 @@ class Words():
     def inputData(self, accList, timeList, wrongLetterList):
         secondTime = time.time()
         self.time = secondTime - self.firstTime
-        self.accuracy = (1-(len(self.wrongLetters)/self.wordLen))*100
+        self.accuracy = (1-(len(self.wrongLetters)/self.wordLen))
         accList.append(self.accuracy); timeList.append(self.time); wrongLetterList.append(self.wrongLetters)    
     def indicateKeyboard(self, surface):
         rowLevel = 0

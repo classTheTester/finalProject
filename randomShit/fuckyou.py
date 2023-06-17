@@ -9,6 +9,7 @@ wrongLetterList = []
 accList = []
 timeList = []
 font = pygame.font.Font('freesansbold.ttf', 32)
+font2 = pygame.font.Font('freesansbold.ttf', 45)
 import pygame
 import json
 # activate the pygame library
@@ -47,7 +48,7 @@ listClass = []
 wordsCounter = 0
 endList = False
 gameLoop = True
-scoreLoop = False
+scoreLoop = True
 def createClasses(words):
     xSpace = 0
     ySpace = 50
@@ -70,10 +71,15 @@ createClasses(words)
 # infinite loop
 userList = []
 nameSaved = False
+score = 0
+rawWPM = 0
+accuracy = 0
 def scoreDraw():
     display_surface.fill(white)
     text = font.render("Please enter a username (max 15 letters)", True, black)
+    text2 = font.render(("Your score "+ str(score)+ " wpm" + "(raw WPM: "+ str(rawWPM) + " accuracy: " + str(round(100*accuracy)) + "%)" ), True, black)
     display_surface.blit(text, (50, 140))
+    display_surface.blit(text2, (20, 80))
     if len(userList) > 0:
         text = font.render(''.join(userList), True, black)
         display_surface.blit(text, (50,185))
@@ -95,28 +101,37 @@ def redraw():
         else:
             listClass[i].drawWord(display_surface, False)
 
-while scoreLoop:
-    pygame.display.update()
-    for event in pygame.event.get():
-        if event.type == pygame.KEYDOWN:
-            keys = pygame.key.get_pressed()
-            if keys[pygame.K_SPACE] and len(userList) > 0:
-                nameSaved = True
-                readInfo = open("scores.txt", "r")
-                readDict = json.load(readInfo)
-                readDict[''.join(userList)] = (0,0)
-                readInfo.close()
-                writingInfo = open("scores.txt", "w")
-                dumpingInfo = json.dumps(readDict)
-                writingInfo.write(dumpingInfo)
-                writingInfo.close()
-            elif keys[pygame.K_BACKSPACE]:
-                if len(userList) > 0: 
-                    userList.pop()
-            else:
-                if len(userList) <= 15:
-                    userList.append(pygame.key.name(event.key))
-    scoreDraw()
+
+def scoreScreen():
+    keyList = []
+    topList = []
+    readInfo = open("scores.txt", "r")
+    readDict = json.load(readInfo)
+    for i in readDict:
+        keyList.append(int(i))
+    for j in range(5):
+        topList.append(max(keyList))
+        keyList.remove(max(keyList))
+    topList = [str(a) for a in topList]
+    return topList, readDict
+
+
+def drawScoreScreen():
+    topList, dic = scoreScreen()
+    display_surface.fill(white)
+    textWPM = font2.render("WPM:", True, black)
+    textUsername = font2.render("Username:" , True, black)
+    display_surface.blit(textWPM, (630, 0))
+    display_surface.blit(textUsername, (30, 0))
+    for i in range(len(topList)):
+        text = font.render((str(i+1) + ".) " + dic.get(topList[i])), True, black)
+        text2 = font.render(str(topList[i]), True, black)
+        display_surface.blit(text, (30, 150 + 100 * i))
+        display_surface.blit(text2, (630, 150 + 100 * i))
+    
+#drawScoreScreen()
+
+        
 
 listClass[0].initiateTime()
 while gameLoop:
@@ -131,24 +146,27 @@ while gameLoop:
             if keys[pygame.K_SPACE]:
                 if endList:
                     endList = False
-                    listClass[wordsCounter].inputData(timeList, accuracyList, wrongLetterList)
+                    listClass[wordsCounter].inputData(accuracyList, timeList, wrongLetterList)
                     print("accc", accuracyList, "timmm", timeList, "wrong", wrongLetterList)
                     wordsCounter += 1
                     if wordsCounter == len(words):
                         totalTime = sum(timeList)
                         #if the user presses space, the timer doesn't start so the score would always be zero")
-                        print("your words per minute is", round((60/totalTime)*len(words)))
-                        print("you accuracy is", sum(accuracyList)//len(words), "%")
+                        rawWPM =  round((60/totalTime)*len(words))
+                        accuracy = sum(accuracyList)/len(words)
+                        score = round(rawWPM * accuracy)
+                        print(score)
+                        gameLoop = False
                         words = [a for a in wrongLetterList if a != ""]
                         if len(words) == 0:
                             print("timeList", timeList, "accuracyList", accuracyList, "wrongLetters", wrongLetterList)
                             print(totalTime)
                             gameLoop = False
-                        else:
-                            wordsCounter = 0
-                            wrongLetterList.clear()
-                            listClass.clear()
-                            createClasses(words)
+                        #else:
+                         #   wordsCounter = 0
+                          #  wrongLetterList.clear()
+                           # listClass.clear()
+                            #createClasses(words)
                     else:
                          print('scmool')
                          listClass[wordsCounter].initiateTime()
@@ -162,20 +180,38 @@ while gameLoop:
                     listClass[wordsCounter+1].initiateTime()
                 print("dope fucking shit")
                 endList = True
-                #     totalTime = sum(timeList)
-                #     #if the user presses space, the timer doesn't start so the score would always be zero")
-                #     print("your words per minute is", round((60/totalTime)*len(words)))
-                #     print("you accuracy is", sum(accuracyList)//len(words), "%")
-                #     words = [a for a in wrongLetterList if a != ""]
-                #     if len(words) == 0:
-                #         print("timeList", timeList, "accuracyList", accuracyList, "wrongLetters", wrongLetterList)
-                #         print(totalTime)
-                #         gameLoop = False
-                #     else:
-                #         wordsCounter = 0
-                #         wrongLetterList.clear()
-                #         listClass.clear()
-                #         createClasses(words)
+
+
+scoreScreenBool = False
+while scoreLoop:
+    pygame.display.update()
+    for event in pygame.event.get():
+        if not scoreScreenBool:
+            if event.type == pygame.KEYDOWN:
+                keys = pygame.key.get_pressed()
+                if keys[pygame.K_SPACE] and len(userList) > 0:
+                    nameSaved = True
+                    readInfo = open("scores.txt", "r")
+                    readDict = json.load(readInfo)
+                    readDict[str(score)] = ''.join(userList)
+                    readInfo.close()
+                    writingInfo = open("scores.txt", "w")
+                    dumpingInfo = json.dumps(readDict)
+                    writingInfo.write(dumpingInfo)
+                    writingInfo.close()
+                elif keys[pygame.K_RETURN]:
+                    scoreScreenBool = True
+                elif keys[pygame.K_BACKSPACE]:
+                    if len(userList) > 0: 
+                        userList.pop()
+                else:
+                    if len(userList) <= 15:
+                        userList.append(pygame.key.name(event.key))
+            scoreDraw()
+        else:
+            print('fuckyea')
+            drawScoreScreen()
+
 
                     
 
