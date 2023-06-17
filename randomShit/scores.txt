@@ -1,1 +1,1 @@
-{"name": "fuckyou", "score": 0}{"name": "thebitchsbackspacee", "score": 0}
+{"name": "fuckyou", "score": 0, "fuckyoy": [0, 0], "thewinning": [0, 0], "thefucking": [0, 0], "thefoolish": [0, 0], "thepeople": [0, 0], "hello": [0, 0]}

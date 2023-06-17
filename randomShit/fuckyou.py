@@ -2,6 +2,7 @@
 from testingClassesFuck import *
 white = (255, 255, 255)
 black = (0,0,0)
+blue = (0, 0, 255)
 totalLetters = 0
 mistakes = 0
 wrongLetterList = []
@@ -10,7 +11,6 @@ timeList = []
 font = pygame.font.Font('freesansbold.ttf', 32)
 import pygame
 import json
-scoreText = open("scores.txt", 'a')
 # activate the pygame library
 # initiate pygame and give permission
 # to use pygame's functionality.
@@ -42,7 +42,7 @@ pygame.display.set_caption('Show Text')
 # create a text surface object,
 # on which text is drawn on it.
 
-words = [ 'yes', 'no','fool', 'please', 'testing']
+words = [ 'yes', 'no','fool', 'please', 'testing', 'foolish', 'pain', 'suffering', 'howwhy', 'foolish', 'damning', 'damningfool']
 listClass = []
 wordsCounter = 0
 endList = False
@@ -69,12 +69,17 @@ createClasses(words)
  
 # infinite loop
 userList = []
+nameSaved = False
 def scoreDraw():
     display_surface.fill(white)
+    text = font.render("Please enter a username (max 15 letters)", True, black)
+    display_surface.blit(text, (50, 140))
     if len(userList) > 0:
-        for i in range(len(userList)):
-            text = font.render(userList[i], True, black)
-            display_surface.blit(text, (10 +30*i,185))
+        text = font.render(''.join(userList), True, black)
+        display_surface.blit(text, (50,185))
+        if nameSaved:
+            text = font.render("Username is saved!", True, blue)
+            display_surface.blit(text, (50, 230))
         
 def redraw():
     yVal = 20
@@ -95,13 +100,22 @@ while scoreLoop:
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
             keys = pygame.key.get_pressed()
-            if keys[pygame.K_SPACE]:
-                scoreJson = {"name": ''.join(userList), "score": 0}
-                test = json.dumps(scoreJson)
-                scoreText.write(test)
-                scoreText.close()
+            if keys[pygame.K_SPACE] and len(userList) > 0:
+                nameSaved = True
+                readInfo = open("scores.txt", "r")
+                readDict = json.load(readInfo)
+                readDict[''.join(userList)] = (0,0)
+                readInfo.close()
+                writingInfo = open("scores.txt", "w")
+                dumpingInfo = json.dumps(readDict)
+                writingInfo.write(dumpingInfo)
+                writingInfo.close()
+            elif keys[pygame.K_BACKSPACE]:
+                if len(userList) > 0: 
+                    userList.pop()
             else:
-                userList.append(pygame.key.name(event.key))
+                if len(userList) <= 15:
+                    userList.append(pygame.key.name(event.key))
     scoreDraw()
 
 listClass[0].initiateTime()
