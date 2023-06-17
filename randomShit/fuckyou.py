@@ -43,7 +43,7 @@ pygame.display.set_caption('Show Text')
 # create a text surface object,
 # on which text is drawn on it.
 
-words = [ 'yes', 'no','fool', 'please', 'testing', 'foolish', 'pain', 'suffering', 'howwhy', 'foolish', 'damning', 'damningfool']
+words = [ 'yes', 'no']#,'fool', 'please', 'testing', 'foolish', 'pain', 'suffering', 'howwhy', 'foolish', 'damning', 'damningfool']
 listClass = []
 wordsCounter = 0
 endList = False
@@ -74,7 +74,7 @@ nameSaved = False
 score = 0
 rawWPM = 0
 accuracy = 0
-def scoreDraw():
+def scoreDraw(username):
     display_surface.fill(white)
     text = font.render("Please enter a username (max 15 letters)", True, black)
     text2 = font.render(("Your score "+ str(score)+ " wpm" + "(raw WPM: "+ str(rawWPM) + " accuracy: " + str(round(100*accuracy)) + "%)" ), True, black)
@@ -207,7 +207,7 @@ while scoreLoop:
                 else:
                     if len(userList) <= 15:
                         userList.append(pygame.key.name(event.key))
-            scoreDraw()
+            scoreDraw(''.join(userList))
         else:
             print('fuckyea')
             drawScoreScreen()
