@@ -31,7 +31,10 @@ def button(msg, x, y, w, h, initcol, aftercol, action):
 
 
 def hello():
-    print("holy shit")
+    from testingClassesGame import Game
+    game = Game()
+    game.run()
+    
 
 def shit():
     print("fuck yeah")
