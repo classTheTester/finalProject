@@ -37,7 +37,9 @@ def hello():
     
 
 def shit():
-    print("fuck yeah")
+    from yifanGameButton import Game
+    game = Game()
+    game.run()
 
 def draw():
     screen.fill((48, 221, 255)) #fill 2/3 screen
@@ -49,7 +51,7 @@ def draw():
     screen.blit(gameMessage,(20,75))
     screen.blit(gameMessageTwo,(40,185))
     screen.blit(personMessage,(150,425))
-    timeButton = button("Play timed", WIDTH//2+10, HEIGHT//2-30, 170, 35, darkBlue, lightBlue, hello)
+    timeButton = button("Play timed", WIDTH//2+10, HEIGHT//2-30, 190, 35, darkBlue, lightBlue, hello)
     spaceButton = button("Space", 100,HEIGHT//2-31,130,35, darkBlue, lightBlue, shit)
 
     

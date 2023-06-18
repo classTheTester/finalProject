@@ -1,7 +1,7 @@
 import pygame
 import json
 pygame.init()
-from testingClassesFuck import
+from testingClassesFuck import *
 class Game:
     def __init__(self):
         self.white = (255, 255, 255)
@@ -147,16 +147,17 @@ class Game:
                 if not scoreScreenBool:
                     if event.type == pygame.KEYDOWN:
                         keys = pygame.key.get_pressed()
-                        if keys[pygame.K_SPACE] and len(self.userList) > 0:
-                            self.nameSaved = True
-                            readInfo = open("scores.txt", "r")
-                            readDict = json.load(readInfo)
-                            readDict[str(self.score)] = ''.join(self.userList)
-                            readInfo.close()
-                            writingInfo = open("scores.txt", "w")
-                            dumpingInfo = json.dumps(readDict)
-                            writingInfo.write(dumpingInfo)
-                            writingInfo.close()
+                        if keys[pygame.K_SPACE]:
+                            if len(self.userList) > 0:
+                                self.nameSaved = True
+                                readInfo = open("scores.txt", "r")
+                                readDict = json.load(readInfo)
+                                readDict[str(self.score)] = ''.join(self.userList)
+                                readInfo.close()
+                                writingInfo = open("scores.txt", "w")
+                                dumpingInfo = json.dumps(readDict)
+                                writingInfo.write(dumpingInfo)
+                                writingInfo.close()
                         elif keys[pygame.K_RETURN]:
                             scoreScreenBool = True
                         elif keys[pygame.K_BACKSPACE]:
