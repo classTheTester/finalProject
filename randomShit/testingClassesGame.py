@@ -19,7 +19,8 @@ class Game:
         self.keyboardImg = pygame.image.load("keyboard.png")
         self.display_surface = pygame.display.set_mode((self.X, self.Y))
         pygame.display.set_caption('Show Text')
-        self.words = ['yes', 'no']
+        self.words = ['yes', 'no', 'random', 'words', 'jkjkj', 'please', 'damn']
+        self.level = 0 #need to add a function that can take a user difficulty level and string together random words from the dedicated level list (to make another list)
         self.listClass = []
         self.wordsCounter = 0
         self.endList = False
